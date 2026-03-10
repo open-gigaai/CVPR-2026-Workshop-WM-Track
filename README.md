@@ -110,7 +110,7 @@ As the baseline world model use Robotwin2.0 simulator to render qpos action to i
 <div align="center">
 
 **Connect & Collaborate**  
-Join our vibrant community on [WeChat](https://www.wechat.com/en/) to share ideas, ask questions, and team up with fellow participants from around the globe.
+Join community on [WeChat](https://www.wechat.com/en/) to share ideas, and team up with fellow participants.
 
 <img src="asserts/community.png" alt="Community" width="300"/>
 </div>
