@@ -112,5 +112,5 @@ Please package the generated videos in the specified format and send them to **x
 **Connect & Collaborate**  
 Join our vibrant community on [WeChat](https://www.wechat.com/en/) to share ideas, ask questions, and team up with fellow participants from around the globe.
 
-![Community](asserts/community.png)
+<img src="asserts/community.png" alt="Community" width="300"/>
 </div>
