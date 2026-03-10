@@ -103,9 +103,9 @@ As the baseline world model use Robotwin2.0 simulator to render qpos action to i
 
 ### Submission
 
-Please package the generated videos in the specified format and send them to **xxx@xxx.com** to complete the submission.
+> Please package the generated videos in the specified format and send them to **xxx@xxx.com** to complete the submission.
 
-
+---
 
 <div align="center">
 
