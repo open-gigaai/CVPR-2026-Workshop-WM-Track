@@ -65,7 +65,7 @@ task/
 
 ![Demo Data](asserts/demo_data.gif)
 
-### Environment setup and Pretrained Model Download
+## Environment setup and Pretrained Model Download
 
 * **Base environment**
 
@@ -104,7 +104,7 @@ HUGGINGFACE_MODEL_CACHE = "/shared_disk/models/huggingface" # line 3 of cvpr_202
 python scripts/download_pretrained_models.py
 ```
 
-### Train
+## Train
 
 We provide a simple training script that integrates with GigaTrain.  
 Below are the steps to launch training after you have packed the data and downloaded pretrained models.
@@ -138,7 +138,7 @@ python scripts/launch_train.py --config_path cvpr_2026_workshop_wm_track.configs
 python scripts/launch_train.py --config_path cvpr_2026_workshop_wm_track.configs.baseline_wm_alltask.config
 ```
 
-### Inference
+## Inference
 
 Todo: Add inference code.
 
