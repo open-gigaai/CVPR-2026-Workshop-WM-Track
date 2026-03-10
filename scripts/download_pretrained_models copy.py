@@ -106,7 +106,7 @@ def run_python(command, **kwargs):
     run(f'{python} {command}', try_until_success=False, **kwargs)
 
 
-def download_huggingface_model(model_name, file_name=None, local_model_dir=None, repo_type=None, token="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", force=False, include=None, **kwargs):
+def download_huggingface_model(model_name, file_name=None, local_model_dir=None, repo_type=None, token=None, force=False, include=None, **kwargs):
     if local_model_dir is None:
         local_model_dir = os.environ['HUGGINGFACE_HUB_CACHE']
     assert len(model_name.split('/')) == 2
