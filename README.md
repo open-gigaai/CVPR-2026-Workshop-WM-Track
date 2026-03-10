@@ -2,11 +2,17 @@
     <h1> CVPR-2026-Workshop-WM-Track </h1>
 
 [//]: # ([![License]&#40;https://img.shields.io/badge/License-Apache_2.0-blue.svg&#41;]&#40;https://opensource.org/licenses/Apache-2.0&#41;)
-[![Project](https://img.shields.io/badge/Project-Page-99cc2)](https://giga-world-0.github.io/)
-[![Models](https://img.shields.io/badge/Model-Huggingface-red?logo=huggingface)](https://huggingface.co/open-gigaai)
-[![Datasets](https://img.shields.io/badge/Dataset-Huggingface-blue?logo=huggingface)](https://huggingface.co/open-gigaai)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Project](https://img.shields.io/badge/Project-Page-99cc2)](https://gigaai-research.github.io/GigaBrain-Challenge-2026/index.html#about)
+[![Models](https://img.shields.io/badge/Model-Huggingface-red?logo=huggingface)](https://huggingface.co/collections/open-gigaai/cvpr-2026-worldmodel-track)
+[![Datasets](https://img.shields.io/badge/Dataset-Huggingface-blue?logo=huggingface)](https://huggingface.co/datasets/open-gigaai/CVPR-2026-WorldModel-Track-Dataset/tree/main)
 
 </div>
+
+
+## About
+
+The repo contains the code and dataset for the World Models Track of GigaBrain Challenge 2026 CVPR Workshop. We provide the information of the dataset and the world models baseline code for training and inference on the track dataset. 
 
 
 ### Dataset
@@ -55,6 +61,42 @@ task/
     │   └── traj.pkl
     └── ...
 ```
+> **Bonus for every training episode:** alongside the ground-truth videos, we also supply depth maps and simulator renderings.
+
+![Demo Data](asserts/demo_data.gif)
+
+### Environment setup
+
+* Base environment
+
+We provide baseline world model code for training and inference. [GigaTrain](https://github.com/open-gigaai/giga-train) and [GigaDataset](https://github.com/open-gigaai/giga-datasets) is used for framework of training and dataset loading respectively.
+
+The base environment for training is the same as the [GigaTrain](https://github.com/open-gigaai/giga-train) repo and [GigaDataset](https://github.com/open-gigaai/giga-datasets).
+
+
+```bash
+conda create -n giga_torch python=3.11.10
+conda activate giga_torch
+
+# install giga-train
+cd third_party/giga-train
+pip3 install -e .
+
+
+# install giga-datasets 
+cd ../giga-datasets
+pip3 install -e .
+```
+
+* Robotwin2.0 simulator environment
+
+As the baseline world model use Robotwin2.0 simulator to render qpos action to images, we need to install the simulator following the [instruction](https://robotwin-platform.github.io/doc/usage/robotwin-install.html).
+
+
+### Train
+
+
+
 
 
 
