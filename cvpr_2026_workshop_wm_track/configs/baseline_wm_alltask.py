@@ -5,7 +5,7 @@ num_frames = 8
 rollout = 4
 total_frames = num_frames * rollout + 1
 fps = 16
-project_dir="experiments/baseline_wm/task4/"
+project_dir="experiments/baseline_wm/alltask/"
 config = dict(
     project_dir=project_dir,
     runners=["cvpr_2026_workshop_wm_track.trainer.BaselineWMTrainer"],
@@ -21,14 +21,21 @@ config = dict(
     dataloaders=dict(
         train=dict(
             data_or_config=[
-                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task4/train"
+                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task1/train",
+                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task2/train",
+                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task3/train",
+                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task4/train",
+                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task5/train",
+                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task6/train",
+                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task7/train",
+                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task8/train",
             ],
             batch_size_per_gpu=1,
             num_workers=8,
             # num_workers=0,
             filter=dict(
                 mode='overall_func',
-                func='cvpr_2026_workshop_wm_track.configs.baseline_wm_task4.filter_data',
+                func='cvpr_2026_workshop_wm_track.configs.baseline_wm_alltask.filter_data',
                 dst_size=dst_size,
                 min_num_frames=num_frames,
                 min_area=dst_size[0] * dst_size[1],

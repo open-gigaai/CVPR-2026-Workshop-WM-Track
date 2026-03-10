@@ -4,17 +4,11 @@ import sys
 import shutil
 from cvpr_2026_workshop_wm_track.model_config import HUGGINGFACE_MODEL_CACHE, huggingface_model_config
 
-# os.environ['HF_TOKEN'] = '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'
-
 cur_dir = os.path.dirname(__file__)
 python = sys.executable
 
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.environ['HUGGINGFACE_HUB_CACHE'] = HUGGINGFACE_MODEL_CACHE
-# os.environ['HUGGINGFACE_HUB_CACHE'] = '/shared_disk/datasets/public_datasets'
-# os.environ['HUGGINGFACE_HUB_CACHE'] = '/shared_disk/users/yukun.zhou/models'
-# os.environ['HUGGINGFACE_HUB_CACHE'] = './huggingface'
-# 使用可用的令牌
 
 def list_dir(root_dir, recursive, exts=None):
     file_paths = []

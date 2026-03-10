@@ -106,7 +106,40 @@ python scripts/download_pretrained_models.py
 
 ### Train
 
+We provide a simple training script that integrates with GigaTrain.  
+Below are the steps to launch training after you have packed the data and downloaded pretrained models.
 
+
+1. Pack training data in giga-datasets format
+
+```bash
+# pack task4 data
+python scripts/pack_training_data.py --data_dir /path/to/dataset --task task4 
+# pack task1-8 data
+python scripts/pack_training_data.py --data_dir /path/to/dataset --task all 
+```
+
+2. Modify training config 
+
+Modify `cvpr_2026_workshop_wm_track/configs/baseline_wm_task4.py` to specify dataset path and other setting:  
+
+> _project_dir_：set logging and checkpoint save directory 
+> 
+> _dataloaders.train.data_or_config_: data path list
+> 
+> _launch.gpu_ids_: set available devices 
+> 
+> _train.checkpoint_interval_: save checkpointing interval per epoch
+
+
+1. Launch training
+
+```bash
+# launch baseline world model training on task4 dataset
+python scripts/launch_train.py --config_path cvpr_2026_workshop_wm_track.configs.baseline_wm_task4.config
+# launch baseline world model training on all task dataset
+python scripts/launch_train.py --config_path cvpr_2026_workshop_wm_track.configs.baseline_wm_alltask.config
+```
 
 ### Inference
 

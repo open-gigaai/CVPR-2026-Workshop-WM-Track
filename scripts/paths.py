@@ -5,10 +5,10 @@ project_name = None
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 python_paths = [
     os.path.join(cur_dir, '../third_party/giga-datasets/'),
-    os.path.join(cur_dir, '..'),
+    os.path.join(cur_dir, '../'),
     os.path.join(cur_dir, '../third_party/giga-train/'),
     os.path.join(cur_dir, '../third_party/diffusers_src/'),
-    os.path.join(cur_dir, '../third_party/diffusers_src/'),
+    os.path.join(cur_dir, '../third_party/Video-Depth-Anything/'),
 ]
 print("python_paths: ", python_paths)
 if project_name is not None:

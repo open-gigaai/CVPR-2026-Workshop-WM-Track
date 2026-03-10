@@ -7,7 +7,6 @@ import torch
 from diffusers.models import AutoencoderKLWan
 from ..models import WanConditionModel
 from einops import rearrange
-from giga_models import utils as gm_utils
 
 from giga_train import Trainer, ModuleDict
 import torch.nn as nn
@@ -23,9 +22,9 @@ import imageio
 from ..pipelines import get_video_depth_anything
 
 
-class CWRolloutMixedTrainerV2(Trainer):
+class BaselineWMTrainer(Trainer):
     def get_models(self, model_config):
-        pretrained = gm_utils.get_model_path(model_config.pretrained)
+        pretrained = model_config.pretrained
         self.flow_shift = model_config.flow_shift
         self.ref_aug_strength = 0.1
         self.expand_timesteps = model_config.get("expand_timesteps", False)
@@ -263,9 +262,6 @@ class CWRolloutMixedTrainerV2(Trainer):
             with torch.no_grad():
                 tensor_video = self.vae.decode(latents, return_dict=False)[0].detach()
             return tensor_video
-
-
-
 
 def process_transformer(transformer, transformer_cfg):
     in_channels = transformer_cfg.get('in_channels', transformer.config.in_channels)
