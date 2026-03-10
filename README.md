@@ -65,7 +65,7 @@ task/
 
 ![Demo Data](asserts/demo_data.gif)
 
-### Environment setup
+### Environment setup and Pretrained Model Download
 
 * **Base environment**
 
@@ -90,15 +90,26 @@ pip3 install -e .
 
 As the baseline world model use Robotwin2.0 simulator to render qpos action to images, we need to install the simulator following the [instruction](https://robotwin-platform.github.io/doc/usage/robotwin-install.html).
 
+* **Download Pretrained Model**
+
+We put the all needed pretrained model information in code `cvpr_2026_workshop_wm_track/model_config.py`. You can change the `HUGGINGFACE_MODEL_CACHE` to your own cache directory.
+
+You can download the pretrained models by running the following command.
+
+```bash
+# change HUGGINGFACE_MODEL_CACHE to your own cache directory
+HUGGINGFACE_MODEL_CACHE = "/shared_disk/models/huggingface" # line 3 of cvpr_2026_workshop_wm_track/model_config.py
+
+# download pretrained models
+python scripts/download_pretrained_models.py
+```
 
 ### Train
 
-
-
-
-
+Pretrainedssss
 
 ### Inference
+
 
 
 ### Submission
