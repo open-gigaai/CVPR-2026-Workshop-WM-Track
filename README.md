@@ -123,13 +123,10 @@ python scripts/pack_training_data.py --data_dir /path/to/dataset --task all
 
 Modify `cvpr_2026_workshop_wm_track/configs/baseline_wm_task4.py` to specify dataset path and other setting:  
 
-> _project_dir_：set logging and checkpoint save directory 
-> 
-> _dataloaders.train.data_or_config_: data path list
-> 
-> _launch.gpu_ids_: set available devices 
-> 
-> _train.checkpoint_interval_: save checkpointing interval per epoch
+- <span style="color:#1f77b4">_project_dir_</span>: <span style="color:#ff7f0e">set logging and checkpoint save directory</span>
+- <span style="color:#1f77b4">_dataloaders.train.data_or_config_</span>: <span style="color:#ff7f0e">data path list</span>
+- <span style="color:#1f77b4">_launch.gpu_ids_</span>: <span style="color:#ff7f0e">set available devices</span>
+- <span style="color:#1f77b4">_train.checkpoint_interval_</span>: <span style="color:#ff7f0e">save checkpointing interval per epoch</span>
 
 
 1. Launch training
