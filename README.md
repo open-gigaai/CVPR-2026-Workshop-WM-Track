@@ -67,7 +67,7 @@ task/
 
 ### Environment setup
 
-* Base environment
+* **Base environment**
 
 We provide baseline world model code for training and inference. [GigaTrain](https://github.com/open-gigaai/giga-train) and [GigaDataset](https://github.com/open-gigaai/giga-datasets) is used for framework of training and dataset loading respectively.
 The base environment for training is the same as the [GigaTrain](https://github.com/open-gigaai/giga-train) repo and [GigaDataset](https://github.com/open-gigaai/giga-datasets).
@@ -86,7 +86,7 @@ cd third_party/giga-datasets
 pip3 install -e .
 ```
 
-* Robotwin2.0 simulator environment
+* **Robotwin2.0 simulator environment**
 
 As the baseline world model use Robotwin2.0 simulator to render qpos action to images, we need to install the simulator following the [instruction](https://robotwin-platform.github.io/doc/usage/robotwin-install.html).
 
