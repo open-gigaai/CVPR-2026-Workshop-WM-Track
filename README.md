@@ -61,7 +61,7 @@ task/
     │   └── traj.pkl
     └── ...
 ```
-> **Bonus for every training episode:** alongside the ground-truth videos, we also supply depth maps and simulator renderings.
+> **Bonus for training episode:** alongside the ground-truth videos, we also supply depth maps and simulator renderings.
 
 ![Demo Data](asserts/demo_data.gif)
 
@@ -70,7 +70,6 @@ task/
 * Base environment
 
 We provide baseline world model code for training and inference. [GigaTrain](https://github.com/open-gigaai/giga-train) and [GigaDataset](https://github.com/open-gigaai/giga-datasets) is used for framework of training and dataset loading respectively.
-
 The base environment for training is the same as the [GigaTrain](https://github.com/open-gigaai/giga-train) repo and [GigaDataset](https://github.com/open-gigaai/giga-datasets).
 
 
@@ -82,9 +81,8 @@ conda activate giga_torch
 cd third_party/giga-train
 pip3 install -e .
 
-
 # install giga-datasets 
-cd ../giga-datasets
+cd third_party/giga-datasets
 pip3 install -e .
 ```
 
@@ -102,3 +100,17 @@ As the baseline world model use Robotwin2.0 simulator to render qpos action to i
 
 ### Inference
 
+
+### Submission
+
+Please package the generated videos in the specified format and send them to **xxx@xxx.com** to complete the submission.
+
+
+
+<div align="center">
+
+**Connect & Collaborate**  
+Join our vibrant community on [WeChat](https://www.wechat.com/en/) to share ideas, ask questions, and team up with fellow participants from around the globe.
+
+![Community](asserts/community.png)
+</div>
