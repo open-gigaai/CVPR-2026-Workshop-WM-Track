@@ -70,7 +70,7 @@ task/
 * **Base environment**
 
 We provide baseline world model code for training and inference. [GigaTrain](https://github.com/open-gigaai/giga-train) and [GigaDataset](https://github.com/open-gigaai/giga-datasets) is used for framework of training and dataset loading respectively.
-The base environment for training is the same as the [GigaTrain](https://github.com/open-gigaai/giga-train) repo and [GigaDataset](https://github.com/open-gigaai/giga-datasets).
+The base environment for training is the same as the [GigaTrain](https://github.com/open-gigaai/giga-train) and [GigaDataset](https://github.com/open-gigaai/giga-datasets).
 
 
 ```bash
@@ -92,9 +92,9 @@ As the baseline world model use Robotwin2.0 simulator to render qpos action to i
 
 * **Download Pretrained Model**
 
-We put the all needed pretrained model information in code `cvpr_2026_workshop_wm_track/model_config.py`. You can change the `HUGGINGFACE_MODEL_CACHE` to your own cache directory.
+We put the all needed pretrained model information in code `cvpr_2026_workshop_wm_track/model_config.py`. 
 
-You can download the pretrained models by running the following command.
+You can change the `HUGGINGFACE_MODEL_CACHE` to your own cache directory. And download the pretrained models by running the following command.
 
 ```bash
 # change HUGGINGFACE_MODEL_CACHE to your own cache directory
@@ -106,11 +106,11 @@ python scripts/download_pretrained_models.py
 
 ### Train
 
-Pretrainedssss
+
 
 ### Inference
 
-
+Todo: Add inference code.
 
 ### Submission
 
