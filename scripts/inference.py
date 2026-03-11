@@ -13,14 +13,18 @@ import multiprocessing
 import os
 import glob
 from multiprocessing import Process
+import pickle
 
 
 class InferenceEngine:
     def __init__(self, transformer_model_path, device, dtype=torch.bfloat16, num_views=3, mode='offline', seed=1024):
+        torch.cuda.set_device(device)
+        device = "cuda"
         print(f"Loading model from {transformer_model_path}")
         model_id = model_config['wan2.2-5b-diffusers']
         vae = AutoencoderKLWan.from_pretrained(model_id, subfolder="vae", torch_dtype=torch.bfloat16)
         transformer = WanConditionModel.from_pretrained(transformer_model_path).to(dtype)
+        self.mode = mode
         self.pipe = BaselineWMPipeline.from_pretrained(model_id, vae=vae, transformer=transformer, torch_dtype=dtype)
         self.pipe.to(device)
 
@@ -124,8 +128,24 @@ def inference(args, device, world_size, rank):
         eval_data_dir = os.path.join(args.data_dir, args.task, 'video_quality')
     elif mode == 'online':
         eval_data_dir = os.path.join(args.data_dir, args.task, 'evaluator')
+    else:
+        raise ValueError(f"mode {mode} is not supported.")
     episode_list = os.listdir(eval_data_dir)
-    breakpoint()
+    data_list = split_data(episode_list, world_size, rank)
+    inference_engine = InferenceEngine(args.transformer_model_path, device=device, mode=mode, seed=args.seed)
+    output_dir = os.path.join(args.output_dir, args.task, 'video_quality_eval' if mode == 'offline' else 'evaluator_test')
+    os.makedirs(output_dir, exist_ok=True)
+    for episode_name in data_list:
+        episode_dir = os.path.join(eval_data_dir, episode_name)
+        if not os.path.isdir(episode_dir):
+            continue
+        if mode == 'offline':
+            cam_high = Image.open(os.path.join(episode_dir, 'cam_high.png')).convert('RGB')
+            cam_left_wrist = Image.open(os.path.join(episode_dir, 'cam_left_wrist.png')).convert('RGB')
+            cam_right_wrist = Image.open(os.path.join(episode_dir, 'cam_right_wrist.png')).convert('RGB')
+            traj = pickle.load(open(os.path.join(episode_dir, 'traj.pkl'), 'rb'))
+
+            breakpoint()
         
     
 
@@ -138,6 +158,7 @@ if __name__ == '__main__':
     parser.add_argument('--mode', type=str, default='offline')
     parser.add_argument("--data_dir", type=str, default=DATA_DIR)
     parser.add_argument("--task", type=str, default='task4')
+    parser.add_argument("--output_dir", type=str, default='output')
     args = parser.parse_args()
 
     inference(args, "cuda:0", 1, 0)

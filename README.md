@@ -148,14 +148,20 @@ After training, you can use the world model to simulate robot behavior. We provi
 - **Offline inference**: No interaction with any policy; the world model directly consumes the trajectory data (e.g., `traj.pkl`) to generate future video frames. This mode is used for the **Video Quality** benchmark—purely evaluating the model’s ability to predict visual dynamics given ground-truth actions.
 
 ```bash
-python 
+python scripts/inference.py --transformer_model_path /path/to/transformer --device_list 0,1,2,3 --output_dir outputs/baseline_wm --task task4 --mode offline
 ```
 
 
 
 - **Online inference**: The world model runs in a closed loop with a **policy** that outputs actions in real time. This mode is used for the **Evaluator** benchmark—testing how well the world model supports downstream VLA (Vision-Language-Action) agents by providing accurate next-state predictions under the policy’s actual action distribution.
 
+Before online inference, you need to prepare simulator server which render qpos to images and policy server which get action from initial image and state.
 
+1. **Start simulator server**
+
+```bash
+
+```
 
 
 
