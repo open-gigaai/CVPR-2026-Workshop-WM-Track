@@ -110,9 +110,13 @@ We provide a simple training script that integrates with GigaTrain.
 Below are the steps to launch training after you have packed the data and downloaded pretrained models.
 
 
-1. Pack training data in giga-datasets format
+1. Pack training data in giga-datasets format 
+
+Pack training data for each task. If you want to pack all tasks, you can set `--task all`. 
 
 ```bash
+# USE DEFAULT DATA_DIR if not specified, You can also use the default DATA_DIR in model_config.py
+python scripts/pack_training_data.py --task all 
 # pack task4 data
 python scripts/pack_training_data.py --data_dir /path/to/dataset --task task4 
 # pack task1-8 data
@@ -121,15 +125,14 @@ python scripts/pack_training_data.py --data_dir /path/to/dataset --task all
 
 2. Modify training config 
 
-Modify `cvpr_2026_workshop_wm_track/configs/baseline_wm_task4.py` to specify dataset path and other setting:  
+Modify `cvpr_2026_workshop_wm_track/configs/baseline_wm_task4.py` to specify training setting:  
 
 - <span style="color:#1f77b4">_project_dir_</span>: <span style="color:#ff7f0e">set logging and checkpoint save directory</span>
-- <span style="color:#1f77b4">_dataloaders.train.data_or_config_</span>: <span style="color:#ff7f0e">data path list</span>
 - <span style="color:#1f77b4">_launch.gpu_ids_</span>: <span style="color:#ff7f0e">set available devices</span>
 - <span style="color:#1f77b4">_train.checkpoint_interval_</span>: <span style="color:#ff7f0e">save checkpointing interval per epoch</span>
 
 
-3. Launch training
+1. Launch training
 
 ```bash
 # launch baseline world model training on task4 dataset
@@ -140,7 +143,21 @@ python scripts/launch_train.py --config_path cvpr_2026_workshop_wm_track.configs
 
 ## Inference
 
-Todo: Add inference code.
+After training, you can use the world model to simulate robot behavior. We provide two inference modes:
+
+- **Offline inference**: No interaction with any policy; the world model directly consumes the trajectory data (e.g., `traj.pkl`) to generate future video frames. This mode is used for the **Video Quality** benchmark—purely evaluating the model’s ability to predict visual dynamics given ground-truth actions.
+
+```bash
+python 
+```
+
+
+
+- **Online inference**: The world model runs in a closed loop with a **policy** that outputs actions in real time. This mode is used for the **Evaluator** benchmark—testing how well the world model supports downstream VLA (Vision-Language-Action) agents by providing accurate next-state predictions under the policy’s actual action distribution.
+
+
+
+
 
 ### Submission
 

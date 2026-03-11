@@ -1,6 +1,9 @@
 import os
 
 HUGGINGFACE_MODEL_CACHE = "/shared_disk/models/huggingface"
+DEFAULT_PROMPT_EMBEDDING_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "asserts", "default_prompt_embeds.pth")  # code repo assert os.path.exists(DEFAULT_PROMPT_EMBEDDING_PATH)
+DATA_DIR = "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/"
+assert os.path.exists(DEFAULT_PROMPT_EMBEDDING_PATH), os.path.abspath(DEFAULT_PROMPT_EMBEDDING_PATH) + "not exist"
 
 model_config = {
     'wan2.2-5b-diffusers': os.path.join(HUGGINGFACE_MODEL_CACHE, "models--Wan-AI--Wan2.2-TI2V-5B-Diffusers"),

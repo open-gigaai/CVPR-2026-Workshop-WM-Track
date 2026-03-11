@@ -1,5 +1,10 @@
 from PIL import Image
 import numpy as np
+import math
+from typing import Sequence, Any
+from itertools import accumulate
+
+
 
 def resize_with_pad(images: np.ndarray, height: int, width: int, method=Image.BILINEAR) -> np.ndarray:
     """Replicates tf.image.resize_with_pad for multiple images using PIL.
@@ -41,3 +46,28 @@ def resize_with_pad(images: np.ndarray, height: int, width: int, method=Image.BI
     images = images.reshape(-1, *original_shape[-3:])
     resized = np.stack([_resize_with_pad_pil(Image.fromarray(im), height, width, method=method) for im in images])
     return resized.reshape(*original_shape[:-3], *resized.shape[-3:])
+
+
+def split_data(data: Sequence[Any], world_size: int = 1, rank: int = 0) -> list[Any]:
+    """Split a list-like dataset across ``world_size`` ranks.
+
+    Args:
+        data (Sequence[Any]): A list-like sequence to split.
+        world_size (int): Total number of splits.
+        rank (int): Current rank in [0, world_size).
+
+    Returns:
+        list[Any]: The split segment owned by ``rank``.
+    """
+    # Compute near-uniform splits with at-most-one element difference
+    data_size = len(data)
+    local_size = math.floor(data_size / world_size)
+    local_size_list = [local_size for _ in range(world_size)]
+    for i in range(data_size - local_size * world_size):
+        local_size_list[i] += 1
+    assert sum(local_size_list) == data_size
+    local_size_list = [0] + list(accumulate(local_size_list))
+    begin = local_size_list[rank]
+    end = local_size_list[rank + 1]
+    data = data[begin:end]
+    return data

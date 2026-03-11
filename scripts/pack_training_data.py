@@ -2,6 +2,7 @@ import json
 import os
 import paths
 from giga_datasets import Dataset, FileWriter, PklWriter, load_dataset
+from cvpr_2026_workshop_wm_track.model_config import DATA_DIR
 from glob import glob
 from tqdm import tqdm
 import pickle
@@ -56,7 +57,7 @@ def pack_data_per_task(task_dir, ):
 
 
 def pack_training_data(args):
-    data_dir = args.data_dir
+    data_dir = args.data_dir if args.data_dir is not None else DATA_DIR
     task = args.task if args.task != "all" else ['task1', 'task2', 'task3', 'task4', 'task5', 'task6', 'task7', 'task8']
     if isinstance(task, str):
         task = [task]
@@ -67,7 +68,7 @@ def pack_training_data(args):
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
-    args.add_argument('--data_dir', type=str, required=True)
+    args.add_argument('--data_dir', type=str, default=None)
     args.add_argument('--task', type=str, default='task1')
     args = args.parse_args()
     pack_training_data(args)

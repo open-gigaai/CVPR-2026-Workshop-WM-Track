@@ -1,4 +1,4 @@
-from ..model_config import model_config
+from ..model_config import model_config, DATA_DIR
 
 dst_size = (224, 224)
 num_frames = 8
@@ -21,7 +21,7 @@ config = dict(
     dataloaders=dict(
         train=dict(
             data_or_config=[
-                "/shared_disk/users/yukun.zhou/dataset/CVPR-2026-Workshop-WM-Track-Dataset/task4/train"
+                f"{DATA_DIR}/task4/train"
             ],
             batch_size_per_gpu=1,
             num_workers=8,

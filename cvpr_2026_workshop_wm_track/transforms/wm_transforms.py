@@ -27,6 +27,8 @@ from torchvision.io import VideoReader as TorchVideoReader
 from ..utils import resize_with_pad
 import torch
 
+from ..model_config import DEFAULT_PROMPT_EMBEDDING_PATH
+
 def basic_clean(text):
     text = ftfy.fix_text(text)
     text = html.unescape(html.unescape(text))
@@ -79,7 +81,7 @@ class WMTransforms:
         self.max_stride = max_stride
         self.sub_frames = sub_frames
 
-        self.default_prompt_embeds = torch.load("/shared_disk/users/yukun.zhou/dataset/longvideo/ode_depth_pairs/00000.pt")['condition_dict']['prompt_embeds'].squeeze(0)
+        self.default_prompt_embeds = torch.load(DEFAULT_PROMPT_EMBEDDING_PATH)['prompt_embeds']
         self.num_views = num_views
 
     def __call__(self, data_dict):
