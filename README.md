@@ -18,7 +18,7 @@ The repo contains the code and dataset for the World Models Track of GigaBrain C
 
 ### Dataset
 
-Download dataset from [huggingface](https://huggingface.co/datasets/open-gigaai/CVPR2026_WorldModel_Track). The data consists of multiple tasks.
+Download dataset from [huggingface](https://huggingface.co/datasets/open-gigaai/CVPR-2026-WorldModel-Track-Dataset). The data consists of multiple tasks.
 
 Each sub-task dataset offering three functional splits as detailed below: the Train split provides full ground-truth (GT) videos and trajectories for supervised learning; the Video Quality split provides only first frames and full trajectories to benchmark conditional video generation; and the Evaluator split provides only initial frames and states to support closed-loop VLA (Vision-Language-Action) interaction and evaluation.
 
@@ -195,7 +195,7 @@ outputs
 └── ...
 ```
 
-> Please package the generated videos of all task in the specified format and send them to **xxx@xxx.com** to complete the submission.
+> Follow the instructions on the [World Model Track Leaderboard](https://huggingface.co/spaces/open-gigaai/CVPR-2026-WorldModel-Track-LeaderBoard) to package and submit the generated videos for all tasks in the required format.
 
 ---
 
