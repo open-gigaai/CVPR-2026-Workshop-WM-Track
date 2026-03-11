@@ -161,7 +161,7 @@ python scripts/inference.py --transformer_model_path /path/to/transformer --devi
 
 Before online inference, you need to prepare simulator server which render qpos to images and policy server which get action from initial image and state.
 
-1. **Start simulator server**
+1. Start simulator server
 
 As the environment is not compatible with the baseline world model, we provide a separate simulator server for online inference.
 
@@ -170,7 +170,7 @@ As the environment is not compatible with the baseline world model, we provide a
 python simulator/script/run_simulator_server.py --host_port 9051
 ```
 
-2. **Start WM&Policy interaction inference**
+2. Start WM&Policy interaction inference
 
 ```bash
 
