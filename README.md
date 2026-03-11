@@ -170,7 +170,7 @@ As the environment is not compatible with the baseline world model, we provide a
 python simulator/script/run_simulator_server.py --host_port 9051
 ```
 
-2. Start WM&Policy interaction inference
+2. Start world model & policy interaction inference
 
 ```bash
 
