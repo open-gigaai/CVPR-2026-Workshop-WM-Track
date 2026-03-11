@@ -2,7 +2,7 @@ import subprocess
 import os
 import sys
 import shutil
-from cvpr_2026_workshop_wm_track.model_config import HUGGINGFACE_MODEL_CACHE, huggingface_model_config
+from cvpr_2026_workshop_wm_track.model_config import HUGGINGFACE_MODEL_CACHE, gigabrain_model_config
 
 cur_dir = os.path.dirname(__file__)
 python = sys.executable
@@ -145,7 +145,7 @@ def download_huggingface_model(model_name, file_name=None, local_model_dir=None,
 
 
 def main():
-    for model_name, model_config in huggingface_model_config.items():
+    for model_name, model_config in gigabrain_model_config.items():
         download_huggingface_model(
             model_name=model_config['model_name'],
             repo_type=model_config['repo_type'],

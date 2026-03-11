@@ -34,7 +34,7 @@ import sys
 import pickle
 import json
 
-sys.path.insert(0, '/mnt/pfs/users/boyuan.wang/project/Robotwin2_onlyreplay')
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '../'))
 
 
 @dataclass

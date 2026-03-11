@@ -102,6 +102,10 @@ HUGGINGFACE_MODEL_CACHE = "/shared_disk/models/huggingface" # line 3 of cvpr_202
 
 # download pretrained models
 python scripts/download_pretrained_models.py
+
+# download gigabrain policy for online evaluation
+python scripts/download_gigabrain_policy.py
+
 ```
 
 ## Train
@@ -159,10 +163,19 @@ Before online inference, you need to prepare simulator server which render qpos 
 
 1. **Start simulator server**
 
-```bash
+As the environment is not compatible with the baseline world model, we provide a separate simulator server for online inference.
 
+```bash
+# start simulator server, default port is 9051
+python simulator/script/run_simulator_server.py --host_port 9051
 ```
 
+2. **Start WM&Policy interaction inference**
+
+```bash
+# start simulator server, default port is 9051
+python simulator/script/run_simulator_server.py --host_port 9051
+```
 
 
 ### Submission

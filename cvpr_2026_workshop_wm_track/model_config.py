@@ -10,6 +10,14 @@ model_config = {
     'paligemma': os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--google--paligemma-3b-pt-224'),
     'fast-tokenizer': os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--physical-intelligence--fast'),
     'video-depth-anything': os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--depth-anything--Video-Depth-Anything-Large'),
+    "cvpr-2026-worldmodel-track-model-task1": os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--open-gigaai--CVPR-2026-WorldModel-Track-Model-Task1'),
+    "cvpr-2026-worldmodel-track-model-task2": os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--open-gigaai--CVPR-2026-WorldModel-Track-Model-Task2'),
+    "cvpr-2026-worldmodel-track-model-task3": os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--open-gigaai--CVPR-2026-WorldModel-Track-Model-Task3'),
+    "cvpr-2026-worldmodel-track-model-task4": os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--open-gigaai--CVPR-2026-WorldModel-Track-Model-Task4'),
+    "cvpr-2026-worldmodel-track-model-task5": os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--open-gigaai--CVPR-2026-WorldModel-Track-Model-Task5'),
+    "cvpr-2026-worldmodel-track-model-task6": os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--open-gigaai--CVPR-2026-WorldModel-Track-Model-Task6'),
+    "cvpr-2026-worldmodel-track-model-task7": os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--open-gigaai--CVPR-2026-WorldModel-Track-Model-Task7'),
+    "cvpr-2026-worldmodel-track-model-task8": os.path.join(HUGGINGFACE_MODEL_CACHE, 'models--open-gigaai--CVPR-2026-WorldModel-Track-Model-Task8'),
 }
 
 huggingface_model_config = {
@@ -28,5 +36,41 @@ huggingface_model_config = {
     "video-depth-anything": {
         "model_name": "depth-anything/Video-Depth-Anything-Large",
         "repo_type": "model",
+    },
+}
+
+
+gigabrain_model_config = {
+    "cvpr-2026-worldmodel-track-model-task1": {
+        "model_name": "open-gigaai/CVPR-2026-WorldModel-Track-Model-Task1",
+        "repo_type": "model"
+    },
+    "cvpr-2026-worldmodel-track-model-task2": {
+        "model_name": "open-gigaai/CVPR-2026-WorldModel-Track-Model-Task2",
+        "repo_type": "model"
+    },
+    "cvpr-2026-worldmodel-track-model-task3": { 
+        "model_name": "open-gigaai/CVPR-2026-WorldModel-Track-Model-Task3",
+        "repo_type": "model"
+    },
+    "cvpr-2026-worldmodel-track-model-task4": {
+        "model_name": "open-gigaai/CVPR-2026-WorldModel-Track-Model-Task4",
+        "repo_type": "model"
+    },
+    "cvpr-2026-worldmodel-track-model-task5": {     
+        "model_name": "open-gigaai/CVPR-2026-WorldModel-Track-Model-Task5",
+        "repo_type": "model"
+    },
+    "cvpr-2026-worldmodel-track-model-task6": {
+        "model_name": "open-gigaai/CVPR-2026-WorldModel-Track-Model-Task6",
+        "repo_type": "model"
+    },
+    "cvpr-2026-worldmodel-track-model-task7": {
+        "model_name": "open-gigaai/CVPR-2026-WorldModel-Track-Model-Task7",
+        "repo_type": "model"
+    },
+    "cvpr-2026-worldmodel-track-model-task8": {             
+        "model_name": "open-gigaai/CVPR-2026-WorldModel-Track-Model-Task8",
+        "repo_type": "model"
     },
 }
