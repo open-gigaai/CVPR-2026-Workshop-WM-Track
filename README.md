@@ -166,14 +166,14 @@ As the environment is not compatible with the baseline world model, we provide a
 
 ```bash
 # start simulator server, default port is 9051
-python simulator/script/run_simulator_server.py --host_port 9051
+python simulator/script/run_simulator_server.py --host_port 9151
 ```
 
 2. Start world model & policy interaction inference
 
 ```bash
 # as the simualtor server is not multi-thread, we only use one device for inference 
-python scripts/inference.py --transformer_model_path /path/to/transformer --device_list 0 --output_dir outputs/baseline_wm --task task4 --mode online --policy_ckpt_dir /path/to/policy --policy_norm_stats /path/to/norm_stat_gigabrain.json --simulator_ip 127.0.0.1 --simulator_port 9051
+python scripts/inference.py --transformer_model_path /path/to/transformer --device_list 0 --output_dir outputs/baseline_wm --task task4 --mode online --policy_ckpt_dir /path/to/policy --policy_norm_stats /path/to/norm_stat_gigabrain.json --simulator_ip 127.0.0.1 --simulator_port 9151
 ```
 
 

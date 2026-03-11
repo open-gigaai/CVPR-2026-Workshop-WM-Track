@@ -317,7 +317,6 @@ class InferenceEngine:
         replay_condition_images = []
         for step in tqdm(range(max_interactions)):
             print("Interaction step {}".format(step))
-            breakpoint()
             actions = self.get_action(img_front, img_left, img_right, state, task)
             actions = actions[:pos_lookahead_step]
             future_state = np.concatenate([state[None, :], actions], axis=0)
