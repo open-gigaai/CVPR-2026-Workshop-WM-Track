@@ -93,9 +93,7 @@ As the baseline world model use Robotwin2.0 simulator to render qpos action to i
 
 * **Download pretrained model**
 
-We put the all needed pretrained model information in code `cvpr_2026_workshop_wm_track/model_config.py`. 
-
-You can change the `HUGGINGFACE_MODEL_CACHE` to your own cache directory. And download the pretrained models by running the following command.
+We put the all needed pretrained model information in code `cvpr_2026_workshop_wm_track/model_config.py`. You can change the `HUGGINGFACE_MODEL_CACHE` to your own cache directory. And download the pretrained models by running the following command.
 
 ```bash
 # change HUGGINGFACE_MODEL_CACHE to your own cache directory
