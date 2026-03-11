@@ -1,7 +1,7 @@
 import paths
 import json
 import types
-from cvpr_2026_workshop_wm_track.pipelines import BaselineWMPipeline, GigaBrain0Pipeline
+from cvpr_2026_workshop_wm_track.pipelines import BaselineWMPipeline, GigaBrain0Pipeline, get_video_depth_anything
 from cvpr_2026_workshop_wm_track.model_config import model_config, DATA_DIR
 from diffusers import AutoencoderKLWan, WanPipeline
 import torch
@@ -64,7 +64,7 @@ def get_policy(
         depth_img_prefix_name=depth_img_prefix_name,
     )
     pipe.to('cuda')
-    pipe.compile()
+    # pipe.compile()
 
     def inference(self, data: dict[str, Any]) -> torch.Tensor:
         """Run policy inference to get the predicted action.
@@ -133,6 +133,8 @@ class InferenceEngine:
         self.guidance_scale = 0.0
         self.num_views = num_views
         self.generator = torch.Generator(device=device).manual_seed(seed)
+
+        self.video_depth_anything = get_video_depth_anything(device)
 
     
     def activate_policy(self, policy_ckpt_dir, norm_stats_path):
@@ -206,21 +208,38 @@ class InferenceEngine:
         img_front = self.resize_image(img_front)
         img_left = self.resize_image(img_left)
         img_right = self.resize_image(img_right)
+        ref_image = concat_images_grid(
+            [img_front, img_left, img_right], cols=3, pad=0)
+
+        front_replay_images = action_images['front_replay']
+        left_replay_images = action_images['left_replay']
+        right_replay_images = action_images['right_replay']
+        front_replay_images = self.resize_images(front_replay_images)
+        left_replay_images = self.resize_images(left_replay_images)
+        right_replay_images = self.resize_images(right_replay_images)
+        action_images = []
+        for i in range(len(front_replay_images)):
+            replay_image = concat_images_grid(
+                [front_replay_images[i], left_replay_images[i], right_replay_images[i]], cols=3, pad=0
+            )
+            action_images.append(replay_image)
+
         if ref_depth is None:
             ref_depth = self.get_three_view_depth_images(img_front, img_left, img_right)
         action_chunk = len(action_images)
         wm_inference_time = (action_chunk - 1) // self.wm_frame_per_time
         if action_chunk % self.wm_frame_per_time != 0:
             Warning(f"action_chunk {action_chunk} is not divisible by wm_frame_per_time {self.wm_frame_per_time}")
+        print(f"wm_inference_time {wm_inference_time}")
         all_output_images = []
         depth_condition_images = []
         replay_condition_images = []
-        for step in range(wm_inference_time):
+        for step in tqdm(range(wm_inference_time)):
             start = step * self.wm_frame_per_time
             end = (step + 1) * self.wm_frame_per_time + 1
             action_images_chunk = action_images[start:end]
             ref_depth_chunk = [ref_depth] * (self.wm_frame_per_time + 1)
-            output_images = self.wm_inference_per_time(action_images_chunk, ref_depth_chunk, img_front)
+            output_images = self.wm_inference_per_time(action_images_chunk, ref_depth_chunk, ref_image)
             if step == wm_inference_time - 1:
                 output_images = output_images
                 depth_condition_images.extend(ref_depth_chunk)
@@ -268,16 +287,11 @@ class InferenceEngine:
         left_replay_images = [Image.fromarray(left_replay_images[i].asnumpy()) for i in range(len(left_replay_images))]
         right_replay_images = [Image.fromarray(right_replay_images[i].asnumpy()) for i in
                                range(len(right_replay_images))]
-        replay_images = []
-        front_replay_images = self.resize_images(front_replay_images)
-        left_replay_images = self.resize_images(left_replay_images)
-        right_replay_images = self.resize_images(right_replay_images)
-        for i in range(len(action)):
-            replay_image = concat_images_grid(
-                [front_replay_images[i], left_replay_images[i], right_replay_images[i]], cols=3, pad=0
-            )
-            replay_images.append(replay_image)
-        return replay_images
+        return {
+            'front_replay': front_replay_images,
+            'left_replay': left_replay_images,
+            'right_replay': right_replay_images,
+        }
     
     def crop_three_view_images(self, ref_image):
         img_front = ref_image.crop((0, 0, self.dst_size[0], self.dst_size[1]))
@@ -326,7 +340,6 @@ class InferenceEngine:
 
 def inference(args, device, world_size, rank):
     mode = args.mode
-    eval_data_dir = os.path.join(args.data_dir, args.task)
     if mode == 'offline':
         eval_data_dir = os.path.join(args.data_dir, args.task, 'video_quality')
     elif mode == 'online':
@@ -348,15 +361,25 @@ def inference(args, device, world_size, rank):
             cam_high = Image.open(os.path.join(episode_dir, 'cam_high.png')).convert('RGB')
             cam_left_wrist = Image.open(os.path.join(episode_dir, 'cam_left_wrist.png')).convert('RGB')
             cam_right_wrist = Image.open(os.path.join(episode_dir, 'cam_right_wrist.png')).convert('RGB')
-            traj = pickle.load(open(os.path.join(episode_dir, 'traj.pkl'), 'rb'))
-
-
+            front_replay_images = VideoReader(os.path.join(episode_dir, 'simulator_cam_high.mp4'))
+            left_replay_images = VideoReader(os.path.join(episode_dir, 'simulator_cam_left_wrist.mp4'))
+            right_replay_images = VideoReader(os.path.join(episode_dir, 'simulator_cam_right_wrist.mp4'))
+            front_replay_images = [Image.fromarray(front_replay_images[i].asnumpy()) for i in
+                                range(len(front_replay_images))]
+            left_replay_images = [Image.fromarray(left_replay_images[i].asnumpy()) for i in range(len(left_replay_images))]
+            right_replay_images = [Image.fromarray(right_replay_images[i].asnumpy()) for i in
+                                range(len(right_replay_images))]
+            action_images = {
+                'front_replay': front_replay_images,
+                'left_replay': left_replay_images,
+                'right_replay': right_replay_images,
+            }
             ref_images = {
                 'front': cam_high,
                 'left': cam_left_wrist,
                 'right': cam_right_wrist,
             }
-            all_output_images, condition_images_dict = inference_engine.wm_inference(ref_images, traj)
+            all_output_images, condition_images_dict = inference_engine.wm_inference(ref_images, action_images)
 
         elif mode == 'online':
             inference_engine.activate_policy(args.policy_ckpt_dir, args.policy_norm_stats_path)
@@ -370,8 +393,8 @@ def inference(args, device, world_size, rank):
                 'right': cam_right_wrist,
             }
             initial_state = pickle.load(open(os.path.join(episode_dir, 'initial_state.pkl'), 'rb'))
-            task = json.load(open(os.path.join(episode_dir, 'meta.json')))['prompt']
-            all_output_images, condition_images_dict = inference_engine.interaction(ref_images, initial_state, task, args.max_interactions, args.pos_lookahead_step)
+            prompt = json.load(open(os.path.join(episode_dir, 'meta.json')))['prompt']
+            all_output_images, condition_images_dict = inference_engine.interaction(ref_images, initial_state, prompt, args.max_interactions, args.pos_lookahead_step)
         
         depth_condition_images = condition_images_dict['depth']
         replay_condition_images = condition_images_dict['replay']
@@ -381,8 +404,8 @@ def inference(args, device, world_size, rank):
             vis_image = [all_output_images[k], depth_condition_images[k], replay_condition_images[k]]
             vis_image = concat_images_grid(vis_image, cols=1, pad=2)
             vis_images.append(vis_image)
-        save_path = os.path.join(output_dir, '{}.mp4'.format(episode_name))
-        concat_save_path = os.path.join(output_dir, 'concat_{}.mp4'.format(episode_name))
+        save_path = os.path.join(output_dir, args.task, '{}.mp4'.format(episode_name))
+        concat_save_path = os.path.join(output_dir, args.task, 'concat_{}.mp4'.format(episode_name))
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         imageio.mimsave(save_path, all_output_images, fps=24)
         imageio.mimsave(concat_save_path, vis_images, fps=24)
@@ -396,7 +419,7 @@ if __name__ == '__main__':
     parser.add_argument('--mode', type=str, default='offline')
     parser.add_argument("--data_dir", type=str, default=DATA_DIR)
     parser.add_argument("--task", type=str, default='task4')
-    parser.add_argument("--output_dir", type=str, default='output')
+    parser.add_argument("--output_dir", type=str, default='outputs/baseline_wm')
 
     # online inference parameter
     parser.add_argument("--simulator_ip", type=str, default='127.0.0.1')
@@ -413,8 +436,8 @@ if __name__ == '__main__':
     if args.policy_norm_stats_path is None:
         args.policy_norm_stats_path = os.path.join(model_config[f'cvpr-2026-worldmodel-track-model-{args.task}'], 'norm_stat_gigabrain.json')
 
-    inference(args, "cuda:0", 1, 0)
-    exit()
+    # inference(args, "cuda:0", 1, 0)
+    # exit()
 
     devices = args.device_list.split(',')
     multiprocessing.set_start_method('spawn')
