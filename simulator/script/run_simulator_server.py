@@ -18,7 +18,7 @@ import time
 sys.path.insert(0, "/shared_disk/users/yukun.zhou/codes/giga/giga-models/scripts/examples/diffusion/wa")
 from sockets import RobotInferenceServer, RobotInferenceClient
 
-host_port = 9151
+default_host_port = 9151
 
 import argparse
 import importlib
@@ -444,7 +444,7 @@ def main(device, world_size, rank) -> None:
 def server():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--host_port', type=int, default=host_port)
+    parser.add_argument('--host_port', type=int, default=default_host_port)
     args = parser.parse_args()
     host_port = args.host_port
     net = ActionRender()

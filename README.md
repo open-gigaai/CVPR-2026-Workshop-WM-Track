@@ -90,7 +90,7 @@ pip3 install -e .
 
 As the baseline world model use Robotwin2.0 simulator to render qpos action to images, we need to install the simulator following the [instruction](https://robotwin-platform.github.io/doc/usage/robotwin-install.html).
 
-* **Download Pretrained Model**
+* **Download pretrained model**
 
 We put the all needed pretrained model information in code `cvpr_2026_workshop_wm_track/model_config.py`. 
 
@@ -173,13 +173,30 @@ python simulator/script/run_simulator_server.py --host_port 9051
 2. Start world model & policy interaction inference
 
 ```bash
-
+# as the simualtor server is not multi-thread, we only use one device for inference 
+python scripts/inference.py --transformer_model_path /path/to/transformer --device_list 0 --output_dir outputs/baseline_wm --task task4 --mode online --policy_ckpt_dir /path/to/policy --policy_norm_stats /path/to/policy_norm_stats.json --simulator_ip 127.0.0.1 --simulator_port 9051
 ```
 
 
 ### Submission
 
-> Please package the generated videos in the specified format and send them to **xxx@xxx.com** to complete the submission.
+After online and offline inference, you can get below structure outputs:
+
+```
+outputs
+├── task4
+│   ├── video_quality_eval
+│   │   ├── concat_episode_0.mp4
+│   │   ├── episode_0.mp4
+│   │   └── ...
+│   └── evaluator_test
+│       ├── concat_episode_0.mp4
+│       ├── episode_0.mp4
+│       └── ...
+└── ...
+```
+
+> Please package the generated videos of all task in the specified format and send them to **xxx@xxx.com** to complete the submission.
 
 ---
 
