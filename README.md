@@ -132,7 +132,7 @@ Modify `cvpr_2026_workshop_wm_track/configs/baseline_wm_task4.py` to specify tra
 - <span style="color:#1f77b4">_train.checkpoint_interval_</span>: <span style="color:#ff7f0e">save checkpointing interval per epoch</span>
 
 
-1. Launch training
+3. Launch training
 
 ```bash
 # launch baseline world model training on task4 dataset
