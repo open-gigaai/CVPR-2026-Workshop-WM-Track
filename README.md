@@ -6,6 +6,7 @@
 [![Project](https://img.shields.io/badge/Project-Page-99cc2)](https://gigaai-research.github.io/GigaBrain-Challenge-2026/index.html#about)
 [![Models](https://img.shields.io/badge/Model-Huggingface-red?logo=huggingface)](https://huggingface.co/collections/open-gigaai/cvpr-2026-worldmodel-track)
 [![Datasets](https://img.shields.io/badge/Dataset-Huggingface-blue?logo=huggingface)](https://huggingface.co/datasets/open-gigaai/CVPR-2026-WorldModel-Track-Dataset/tree/main)
+[![Leaderboard](https://img.shields.io/badge/Leaderboard-Huggingface-yellow?logo=huggingface)](https://huggingface.co/spaces/open-gigaai/CVPR-2026-WorldModel-Track-LeaderBoard)
 
 </div>
 
@@ -174,7 +175,7 @@ python simulator/script/run_simulator_server.py --host_port 9051
 
 ```bash
 # as the simualtor server is not multi-thread, we only use one device for inference 
-python scripts/inference.py --transformer_model_path /path/to/transformer --device_list 0 --output_dir outputs/baseline_wm --task task4 --mode online --policy_ckpt_dir /path/to/policy --policy_norm_stats /path/to/policy_norm_stats.json --simulator_ip 127.0.0.1 --simulator_port 9051
+python scripts/inference.py --transformer_model_path /path/to/transformer --device_list 0 --output_dir outputs/baseline_wm --task task4 --mode online --policy_ckpt_dir /path/to/policy --policy_norm_stats /path/to/norm_stat_gigabrain.json --simulator_ip 127.0.0.1 --simulator_port 9051
 ```
 
 

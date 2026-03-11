@@ -340,6 +340,7 @@ def inference(args, device, world_size, rank):
     os.makedirs(output_dir, exist_ok=True)
     for episode_name in data_list:
         episode_dir = os.path.join(eval_data_dir, episode_name)
+        print("Episode name: {}".format(episode_name), episode_dir)
         if not os.path.isdir(episode_dir):
             continue
 
@@ -358,8 +359,8 @@ def inference(args, device, world_size, rank):
             all_output_images, condition_images_dict = inference_engine.wm_inference(ref_images, traj)
 
         elif mode == 'online':
-            inference_engine.activate_policy(args.policy_ckpt_dir, )
-            inference_engine.activate_simulator_client()
+            inference_engine.activate_policy(args.policy_ckpt_dir, args.policy_norm_stats_path)
+            inference_engine.activate_simulator_client(args.simulator_ip, args.simulator_port)
             cam_high = Image.open(os.path.join(episode_dir, 'cam_high.png')).convert('RGB')
             cam_left_wrist = Image.open(os.path.join(episode_dir, 'cam_left_wrist.png')).convert('RGB')
             cam_right_wrist = Image.open(os.path.join(episode_dir, 'cam_right_wrist.png')).convert('RGB')
@@ -401,7 +402,7 @@ if __name__ == '__main__':
     parser.add_argument("--simulator_ip", type=str, default='127.0.0.1')
     parser.add_argument("--simulator_port", type=str, default='9151')
     parser.add_argument("--policy_ckpt_dir", type=str, default=None)
-    parser.add_argument("--policy_norm_stats", type=str, default=None)
+    parser.add_argument("--policy_norm_stats_path", type=str, default=None)
     parser.add_argument("--max_interactions", type=int, default=15)
     parser.add_argument("--pos_lookahead_step", type=int, default=24)
     args = parser.parse_args()
@@ -409,8 +410,8 @@ if __name__ == '__main__':
     if args.policy_ckpt_dir is None:
         args.policy_ckpt_dir = model_config[f'cvpr-2026-worldmodel-track-model-{args.task}']
 
-    if args.policy_norm_stats is None:
-        args.policy_norm_stats = os.path.join(model_config[f'cvpr-2026-worldmodel-track-model-{args.task}'], 'norm_stat_gigabrain.json')
+    if args.policy_norm_stats_path is None:
+        args.policy_norm_stats_path = os.path.join(model_config[f'cvpr-2026-worldmodel-track-model-{args.task}'], 'norm_stat_gigabrain.json')
 
     inference(args, "cuda:0", 1, 0)
     exit()

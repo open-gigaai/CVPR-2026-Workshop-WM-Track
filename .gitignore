@@ -8,6 +8,7 @@ __pycache__/
 
 # PyTorch checkpoint
 *.pth
+debug.sh
 
 # Distribution / packaging
 .Python
