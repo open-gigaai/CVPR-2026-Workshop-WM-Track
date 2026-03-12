@@ -90,7 +90,7 @@ class WMTransforms:
             if 'front_video_path' in data_dict:
                 front_images = DecordVideoReader(data_dict['cam_high_video_path'])
                 replay_images = DecordVideoReader(data_dict['cam_high_replay_path'])
-                depth_images = DecordVideoReader(data_dict['cam_high_depth_path'])
+                depth_images = DecordVideoReader(data_dict['cam_high_simulator_path'])
                 video_legnth = len(front_images)
                 assert len(front_images) == len(depth_images) == len(replay_images)
         elif self.num_views == 3:
@@ -115,7 +115,7 @@ class WMTransforms:
             stride = random.randint(1, self.max_stride)
             start_frame = random.randint(0, max(0, video_legnth - stride * (self.num_frames - 1) - 1))
             end_frame = start_frame + stride * (self.num_frames - 1)
-            end_frame = min(video_legnth, end_frame)
+            end_frame = min(video_legnth-1, end_frame)
             sample_indexes = np.linspace(start_frame, end_frame, num=self.num_frames, dtype=int)
         else:
             sample_indexes = np.linspace(0, video_legnth - 1, self.num_frames, dtype=int)

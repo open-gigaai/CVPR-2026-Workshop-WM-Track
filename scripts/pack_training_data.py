@@ -33,7 +33,7 @@ def pack_data_per_task(task_dir, ):
             simulator_dict = get_three_view_video_paths('simulator', task_dir, episode_name, 'simulator')
             video_dict = get_three_view_video_paths('videos', task_dir, episode_name, 'video')
         except Exception as e:
-            print(f"报错详情: {e}")
+            print(f"报错详情: {e}, {episode_name}")
         data_dict = {
             **depth_dict,
             **simulator_dict,
