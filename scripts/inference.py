@@ -349,7 +349,7 @@ def inference(args, device, world_size, rank):
     episode_list = os.listdir(eval_data_dir)
     data_list = split_data(episode_list, world_size, rank)
     inference_engine = InferenceEngine(args.transformer_model_path, device=device, mode=mode, seed=args.seed)
-    output_dir = os.path.join(args.output_dir, args.task, 'video_quality_eval' if mode == 'offline' else 'evaluator_test')
+    output_dir = os.path.join(args.output_dir, 'video_quality_eval' if mode == 'offline' else 'evaluator_test', args.task)
     os.makedirs(output_dir, exist_ok=True)
     for episode_name in data_list:
         episode_dir = os.path.join(eval_data_dir, episode_name)
