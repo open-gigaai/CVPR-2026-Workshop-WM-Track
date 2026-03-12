@@ -404,8 +404,8 @@ def inference(args, device, world_size, rank):
             vis_image = [all_output_images[k], depth_condition_images[k], replay_condition_images[k]]
             vis_image = concat_images_grid(vis_image, cols=1, pad=2)
             vis_images.append(vis_image)
-        save_path = os.path.join(output_dir, args.task, '{}.mp4'.format(episode_name))
-        concat_save_path = os.path.join(output_dir, args.task, 'concat_{}.mp4'.format(episode_name))
+        save_path = os.path.join(output_dir, '{}.mp4'.format(episode_name))
+        concat_save_path = os.path.join(output_dir, 'concat_{}.mp4'.format(episode_name))
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         imageio.mimsave(save_path, all_output_images, fps=24)
         imageio.mimsave(concat_save_path, vis_images, fps=24)
