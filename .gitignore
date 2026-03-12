@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # PyTorch checkpoint
-*.pth
+#*.pth
 debug.sh
 
 # Distribution / packaging
