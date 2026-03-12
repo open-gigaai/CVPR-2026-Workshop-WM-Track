@@ -441,8 +441,8 @@ if __name__ == '__main__':
     if args.policy_norm_stats_path is None:
         args.policy_norm_stats_path = os.path.join(model_config[f'cvpr-2026-worldmodel-track-model-{args.task}'], 'norm_stat_gigabrain.json')
 
-    inference(args, "cuda:0", 1, 0)
-    exit()
+    # inference(args, "cuda:0", 1, 0)
+    # exit()
 
     devices = args.device_list.split(',')
     multiprocessing.set_start_method('spawn')
