@@ -16,8 +16,8 @@ def get_video_depth_anything(device, metric=False):
     video_depth_model_dir = model_config['video-depth-anything']
     video_depth_anything.load_state_dict(
         torch.load(
-            f'/shared_disk/users/yukun.zhou/models/Video-Depth-Anything/{checkpoint_name}_{encoder}.pth',
-            # f'{video_depth_model_dir}/{checkpoint_name}_{encoder}.pth',
+            # f'/shared_disk/users/yukun.zhou/models/Video-Depth-Anything/{checkpoint_name}_{encoder}.pth',
+            f'{video_depth_model_dir}/{checkpoint_name}_{encoder}.pth',
             map_location='cpu'), strict=True)
     video_depth_anything = video_depth_anything.to(device).eval()
     return video_depth_anything

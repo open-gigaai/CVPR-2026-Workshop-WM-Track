@@ -328,6 +328,11 @@ class InferenceEngine:
             state = future_state[-1]
             ref_image = output_images[-1]
             img_front, img_left, img_right = self.crop_three_view_images(ref_image)
+            ref_images = {
+                'front': img_front,
+                'left': img_left,
+                'right': img_right,
+            }
             ref_depth = condition_images_dict['depth'][-1]
             assert len(all_output_images) == len(depth_condition_images) == len(replay_condition_images)
         
