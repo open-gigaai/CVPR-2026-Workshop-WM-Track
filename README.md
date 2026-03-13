@@ -15,8 +15,9 @@
 
 The repo contains the code and dataset for the World Models Track of GigaBrain Challenge 2026 CVPR Workshop. We provide the information of the dataset and the world models baseline code for training and inference on the track dataset. 
 
-![illustration](asserts/illustration.gif)
-
+<div align="center">
+<img src="asserts/illustration.gif" alt="illustration" width="500" height="300"/>
+</div>
 
 
 ### Dataset
