@@ -183,16 +183,16 @@ After online and offline inference, you can get below structure outputs:
 
 ```
 outputs
-├── task4
-│   ├── video_quality_eval
-│   │   ├── concat_episode_0.mp4
+├── video_quality_eval
+│   ├── task1
 │   │   ├── episode_0.mp4
 │   │   └── ...
-│   └── evaluator_test
-│       ├── concat_episode_0.mp4
-│       ├── episode_0.mp4
-│       └── ...
-└── ...
+│   └── ...
+└── evaluator_test
+    ├── task1
+    │   ├── episode_0.mp4
+    │   └── ...
+    └── ...
 ```
 
 > Follow the instructions on the [World Model Track Leaderboard](https://huggingface.co/spaces/open-gigaai/CVPR-2026-WorldModel-Track-LeaderBoard) to package and submit the generated videos for all tasks in the required format.
