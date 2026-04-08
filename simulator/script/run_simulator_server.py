@@ -34,7 +34,7 @@ import json
 # ---------------------------------------------------------------------
 # External path setup
 # ---------------------------------------------------------------------
-sys.path.insert(0, "/shared_disk/users/yukun.zhou/codes/giga/giga-models/scripts/examples/diffusion/wa")
+sys.path.insert(0, "your/path/to/CVPR-2026-Workshop-WM-Track/cvpr_2026_workshop_wm_track/sockets")
 from sockets import RobotInferenceServer, RobotInferenceClient
 
 default_host_port = 9151
@@ -45,10 +45,10 @@ DEFAULT_GRIPPER_MAX_NORMALIZED = 0.8
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "../"))
 sys.path.insert(
     1,
-    "/shared_disk/users/zhenyu.wu/codes/giga/giga/giga-train/projects/CVPR-2026-Workshop-WM-Track/simulator",
+    "your/path/to/CVPR-2026-Workshop-WM-Track/simulator",
 )
 
-sys.path.insert(0, "/shared_disk/users/yukun.zhou/codes/giga/giga-datasets/")
+sys.path.insert(0, "your/path/to/CVPR-2026-Workshop-WM-Track/third_party/giga-datasets/")
 from giga_datasets import load_dataset
 from giga_datasets import utils as gd_utils
 import torch
